@@ -29,7 +29,7 @@ both places.
 
 | Setting | adb extra | Default | What it does |
 | --- | --- | --- | --- |
-| Page URL | `--es url` | none | The page to show. Full `http://` or `https://` URL. |
+| Page URL | `--es url` | none | The page to show. Full `http://` or `https://` URL. Plain `http://` works (for example `http://homeassistant.local:8123/`), but on a shared network prefer `https://`: over http, sign-in cookies travel unencrypted. |
 | Other hosts | `--es allowed_hosts` | none | Comma-separated hosts the page may navigate to, such as a sign-in page on another host. `*.example.com` matches subdomains. The page's own host is always allowed. |
 | Reload every N minutes | `--ei reload_minutes` | `60` | Reloads the page periodically while the screensaver runs, which clears memory a long-open page builds up and recovers a page that stopped updating. 0 turns it off; up to 1440. |
 | Retry after N seconds | `--ei retry_seconds` | `30` | How long to wait before retrying a page that failed to load. 5 to 3600. |
