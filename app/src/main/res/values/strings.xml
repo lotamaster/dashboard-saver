@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dreampage</string>
+    <string name="title">Dreampage</string>
+    <string name="subtitle">Shows one web page as this device\'s screensaver.</string>
+    <string name="url_label">Page URL</string>
+    <string name="url_hint">https://example.com/dashboard</string>
+    <string name="save">Save</string>
+    <string name="open">Open page (sign in)</string>
+    <string name="system_settings">Screensaver settings</string>
+    <string name="saved">Saved</string>
+    <string name="bad_url">Enter a full http:// or https:// URL</string>
+    <string name="no_url">No page set. Open Dreampage to choose one.</string>
+    <string name="no_dream_settings">This device hides screensaver settings. Use the adb command below.</string>
+    <string name="status_active">Dreampage is the current screensaver.</string>
+    <string name="status_inactive">Dreampage is not the current screensaver yet.</string>
+    <string name="status_unknown">Could not read the current screensaver.</string>
+    <string name="adb_help">To make it the screensaver on Google TV, from a computer:\nadb shell settings put secure screensaver_components com.lotamaster.dreampage/.DreampageDream</string>
+</resources>
