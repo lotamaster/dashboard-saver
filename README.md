@@ -44,11 +44,28 @@ both places.
 | Zoom, percent | `--ei zoom_percent` | `100` | Scales the page. 100 uses the page's own layout. 25 to 400. |
 | Let the screen dim | `--ez dim` | `false` | Lets the screen dim during the screensaver. |
 | Shift the page | `--ez shift_pixels` | `false` | Burn-in protection: moves the page to a random offset of up to 6dp every 2 minutes. Screensaver only. |
+| Interactive | `--ez interactive` | `false` | The remote's arrows and OK go to the page (OK arrives as Enter), so a page with keyboard controls can be used from the couch. Back asks the page first (see **Back in interactive mode**). Every other button ends the screensaver, and Home always leaves. Off: any button ends it. |
 | Clear sign-in data | `--ez clear_data true` | button | Deletes all cookies and site storage, signing you out. |
 
 The settings screen also has **Open page (sign in)** to use the page
 interactively, **Screensaver settings** to open the system's screensaver
 picker, and a line saying whether DashboardSaver is the active screensaver.
+
+### Back in interactive mode
+
+With **Interactive** on, Back runs `window.dashboardSaver?.onBack?.()` in the
+page. Return `true` when the page handled it (for example, it closed a popup)
+and the screensaver stays up. Anything else, an error, or no answer within
+500 ms ends the screensaver. A page that doesn't define it just exits on Back.
+
+```js
+window.dashboardSaver = {
+  onBack() {
+    if (popupOpen) { closePopup(); return true; }
+    return false;
+  },
+};
+```
 
 ### From adb
 
@@ -151,7 +168,8 @@ adb shell input keyevent KEYCODE_ENTER
   screensaver shares.
 - If you sign in through a separate host (an SSO or auth proxy), add it to
   **Other hosts**.
-- The screensaver is display-only: any remote button wakes the TV.
+- The screensaver is display-only by default: any remote button wakes the TV.
+  Turn on **Interactive** to use the page with the remote.
 
 ## Build
 
@@ -167,7 +185,7 @@ Build options, passed with `-P` or set in `~/.gradle/gradle.properties`:
 | --- | --- | --- |
 | `dashboardsaver.applicationId` | `com.lotamaster.dashboardsaver` (in `gradle.properties`) | The package ID. Forks should change it so their build installs alongside this one. The broadcast action, the screensaver's settings link and the on-screen adb help all follow it; replace the package in the adb commands above to match. |
 | `dashboardsaver.defaultUrl` | none | A URL the app starts with before one is set, for builds you install on your own devices. Keep it in `~/.gradle/gradle.properties` so it never lands in the repo. |
-| `versionName` | `0.2.0` | Set by CI from the `v*` tag. `versionCode` is derived as major×10000 + minor×100 + patch. |
+| `versionName` | `0.3.0` | Set by CI from the `v*` tag. `versionCode` is derived as major×10000 + minor×100 + patch. |
 
 Release builds are signed in CI when a `v*` tag is pushed, from these
 repository secrets: `SIGNING_KEYSTORE_B64` (the keystore, base64-encoded),

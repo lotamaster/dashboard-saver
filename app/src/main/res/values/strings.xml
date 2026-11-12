@@ -9,6 +9,7 @@
     <string name="zoom_label">Zoom, percent (100 = the page\'s own size)</string>
     <string name="dim_label">Let the screen dim</string>
     <string name="shift_label">Shift the page slightly every 2 minutes (burn-in protection)</string>
+    <string name="interactive_label">Interactive: the remote\'s arrows and OK work the page, Back asks the page first (other buttons end the screensaver)</string>
     <string name="save">Save</string>
     <string name="open">Open page (sign in)</string>
     <string name="system_settings">Screensaver settings</string>

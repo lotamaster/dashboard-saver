@@ -21,6 +21,8 @@ data class Settings(
     val dim: Boolean,
     /** Move the page a few pixels every couple of minutes, against burn-in. */
     val shiftPixels: Boolean,
+    /** Let the remote's arrows, OK and Back work the page instead of ending the screensaver. */
+    val interactive: Boolean,
 )
 
 object Prefs {
@@ -33,6 +35,7 @@ object Prefs {
     const val ZOOM_PERCENT = "zoom_percent"
     const val DIM = "dim"
     const val SHIFT_PIXELS = "shift_pixels"
+    const val INTERACTIVE = "interactive"
 
     val RELOAD_RANGE = 0..1440
     val RETRY_RANGE = 5..3600
@@ -51,6 +54,7 @@ object Prefs {
             zoomPercent = p.getInt(ZOOM_PERCENT, 100),
             dim = p.getBoolean(DIM, false),
             shiftPixels = p.getBoolean(SHIFT_PIXELS, false),
+            interactive = p.getBoolean(INTERACTIVE, false),
         )
     }
 
@@ -63,6 +67,7 @@ object Prefs {
             .putInt(ZOOM_PERCENT, s.zoomPercent)
             .putBoolean(DIM, s.dim)
             .putBoolean(SHIFT_PIXELS, s.shiftPixels)
+            .putBoolean(INTERACTIVE, s.interactive)
             .apply()
     }
 

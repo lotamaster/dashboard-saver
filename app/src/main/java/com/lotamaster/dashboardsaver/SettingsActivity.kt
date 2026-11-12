@@ -26,6 +26,7 @@ class SettingsActivity : Activity() {
     private lateinit var zoomPercent: EditText
     private lateinit var dim: CheckBox
     private lateinit var shiftPixels: CheckBox
+    private lateinit var interactive: CheckBox
     private lateinit var status: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +39,7 @@ class SettingsActivity : Activity() {
         zoomPercent = view(R.id.zoom_percent)
         dim = view(R.id.dim)
         shiftPixels = view(R.id.shift_pixels)
+        interactive = view(R.id.interactive)
         status = view(R.id.status)
 
         // One row of buttons on a TV or tablet; stacked on a phone, where they
@@ -80,6 +82,7 @@ class SettingsActivity : Activity() {
         zoomPercent.setText(s.zoomPercent.toString())
         dim.isChecked = s.dim
         shiftPixels.isChecked = s.shiftPixels
+        interactive.isChecked = s.interactive
     }
 
     /** Validates every field; saves only if all are good. */
@@ -104,6 +107,7 @@ class SettingsActivity : Activity() {
                 zoomPercent = zoom,
                 dim = dim.isChecked,
                 shiftPixels = shiftPixels.isChecked,
+                interactive = interactive.isChecked,
             ),
         )
         Toast.makeText(this, R.string.saved, Toast.LENGTH_SHORT).show()

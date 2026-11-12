@@ -13,7 +13,7 @@ import android.util.Log
  *     -a <package>.action.CONFIGURE \
  *     --es url https://example.com/ --es allowed_hosts "auth.example.com,*.cdn.net" \
  *     --ei reload_minutes 60 --ei retry_seconds 30 --ei zoom_percent 100 \
- *     --ez dim false --ez shift_pixels true --ez clear_data false
+ *     --ez dim false --ez shift_pixels true --ez interactive true --ez clear_data false
  *
  * The manifest requires the DUMP permission to send this, which the adb
  * shell has and ordinary apps can't get.
@@ -32,6 +32,7 @@ class ConfigReceiver : BroadcastReceiver() {
         intInRange(intent, Prefs.ZOOM_PERCENT, Prefs.ZOOM_RANGE, errors)?.let { s = s.copy(zoomPercent = it) }
         if (intent.hasExtra(Prefs.DIM)) s = s.copy(dim = intent.getBooleanExtra(Prefs.DIM, false))
         if (intent.hasExtra(Prefs.SHIFT_PIXELS)) s = s.copy(shiftPixels = intent.getBooleanExtra(Prefs.SHIFT_PIXELS, false))
+        if (intent.hasExtra(Prefs.INTERACTIVE)) s = s.copy(interactive = intent.getBooleanExtra(Prefs.INTERACTIVE, false))
 
         if (errors.isEmpty()) {
             val before = Prefs.load(context)
@@ -57,6 +58,7 @@ class ConfigReceiver : BroadcastReceiver() {
         if (a.zoomPercent != b.zoomPercent) add(Prefs.ZOOM_PERCENT)
         if (a.dim != b.dim) add(Prefs.DIM)
         if (a.shiftPixels != b.shiftPixels) add(Prefs.SHIFT_PIXELS)
+        if (a.interactive != b.interactive) add(Prefs.INTERACTIVE)
     }
 
     /** Null if the extra is absent or invalid (invalid also adds an error). */
