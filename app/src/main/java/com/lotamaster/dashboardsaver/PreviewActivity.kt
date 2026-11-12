@@ -15,6 +15,8 @@ class PreviewActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         page = PageView(this, Prefs.load(this))
+        // The renderer died: this screen is just for signing in, so close it.
+        page.onRendererGone = { finish() }
         setContentView(page)
         page.requestFocus()
         page.start(screensaver = false)

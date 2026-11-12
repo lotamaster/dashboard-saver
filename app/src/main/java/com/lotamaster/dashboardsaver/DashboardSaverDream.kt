@@ -1,6 +1,8 @@
 package com.lotamaster.dashboardsaver
 
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.service.dreams.DreamService
 import android.view.Gravity
 import android.widget.TextView
@@ -9,6 +11,7 @@ import android.widget.TextView
 class DashboardSaverDream : DreamService() {
 
     private var page: PageView? = null
+    private val handler = Handler(Looper.getMainLooper())
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -18,10 +21,7 @@ class DashboardSaverDream : DreamService() {
         isScreenBright = !s.dim
 
         if (Prefs.isValidUrl(s.url)) {
-            page = PageView(this, s).also {
-                setContentView(it)
-                it.start(screensaver = true)
-            }
+            showPage(s)
         } else {
             setContentView(TextView(this).apply {
                 setText(R.string.no_url)
@@ -33,9 +33,30 @@ class DashboardSaverDream : DreamService() {
         }
     }
 
+    private fun showPage(s: Settings) {
+        page = PageView(this, s).also {
+            it.onRendererGone = {
+                // Drop the dead view now; bring up a new one shortly, so a page
+                // that keeps crashing the renderer doesn't spin.
+                page?.let { dead -> setContentView(blank()); dead.stop() }
+                page = null
+                handler.postDelayed({ showPage(s) }, RECREATE_DELAY_MS)
+            }
+            setContentView(it)
+            it.start(screensaver = true)
+        }
+    }
+
+    private fun blank() = TextView(this).apply { setBackgroundColor(Color.BLACK) }
+
     override fun onDetachedFromWindow() {
+        handler.removeCallbacksAndMessages(null)
         page?.stop()
         page = null
         super.onDetachedFromWindow()
+    }
+
+    private companion object {
+        const val RECREATE_DELAY_MS = 5_000L
     }
 }

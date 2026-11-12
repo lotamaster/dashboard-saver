@@ -18,6 +18,7 @@
     <string name="saved">Saved</string>
     <string name="bad_url">Enter a full http:// or https:// URL</string>
     <string name="bad_number">Enter a number from %1$d to %2$d</string>
+    <string name="ssl_error">This page\'s security certificate isn\'t trusted, so it wasn\'t shown. Retrying.</string>
     <string name="no_url">No page set. Open DashboardSaver to choose one.</string>
     <string name="no_dream_settings">This device hides screensaver settings. Use the adb command below.</string>
     <string name="status_active">DashboardSaver is the current screensaver.</string>
