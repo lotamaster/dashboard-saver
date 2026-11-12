@@ -3,6 +3,9 @@
 Your dashboard as the screensaver on Android TV and Google TV: a Home
 Assistant dashboard, a Grafana board, a calendar, any web page with a URL.
 
+<!-- TODO: screenshot of DashboardSaver on a TV, using a neutral demo
+     dashboard (no personal calendar or home data). -->
+
 - **Small.** A few hundred lines of Kotlin, no libraries beyond the Android
   framework, no AndroidX.
 - **Private.** No analytics, no ads. The app itself talks only to the page
@@ -15,6 +18,9 @@ Assistant dashboard, a Grafana board, a calendar, any web page with a URL.
   local storage are shared with the screensaver, so a login sticks.
 - **Works as code.** Every setting can be set over adb, so a setup script can
   own it.
+
+DashboardSaver is an independent open-source project. It is not affiliated
+with "Dashboard Screen Saver" or any other app on Google Play.
 
 ## Install
 
@@ -98,13 +104,39 @@ DashboardSaver's own screen shows whether it is the active screensaver.
 
 ### adb on Google TV
 
-Settings → System → About → press **Android TV OS build** seven times. Then
-Settings → System → Developer options → **Wireless debugging** → Pair device
-with pairing code, and from your computer:
+Turn on Developer options: Settings → System → About → press **Android TV OS
+build** seven times. Then connect one of two ways.
+
+**Classic adb (port 5555).** Many Google TV devices, especially on Ethernet,
+accept adb on port 5555 once USB debugging is on in Developer options. Find the
+TV's address from your computer, then connect and accept "Allow debugging" on
+the TV:
+
+```sh
+adb mdns services              # look for _adb._tcp  <ip>:5555
+adb connect <ip>:5555
+```
+
+**Wireless debugging.** Settings → System → Developer options → **Wireless
+debugging** → Pair device with pairing code. It needs the TV to be on Wi-Fi;
+on Ethernet the switch may refuse to turn on (use classic adb above).
 
 ```sh
 adb pair <ip>:<pairing-port>   # enter the code shown on the TV
 adb connect <ip>:<port>
+```
+
+### Typing on the TV from your computer
+
+Signing in with the remote is slow. With the TV's text field selected, `adb
+shell input text` types for you. This reads a password without echoing it or
+saving it in your shell history, and escapes it for the TV's shell:
+
+```sh
+read -rs 'PW?Password: '; echo        # zsh; in bash: read -rsp 'Password: ' PW
+q=${PW//\'/\'\\\'\'}; q=${q// /%s}
+adb shell input text "'$q'"; unset PW q
+adb shell input keyevent KEYCODE_ENTER
 ```
 
 ## Home Assistant tips
@@ -113,6 +145,10 @@ adb connect <ip>:<port>
   signing in.
 - Hide Home Assistant's header for that user (for example with kiosk-mode) so
   the dashboard fills the screen.
+- On a TV, Home Assistant keeps its sidebar open because the screen is wide.
+  In "Open page (sign in)", go to your profile and turn on **Always hide the
+  sidebar**. The setting is stored in the TV's browser storage, which the
+  screensaver shares.
 - If you sign in through a separate host (an SSO or auth proxy), add it to
   **Other hosts**.
 - The screensaver is display-only: any remote button wakes the TV.
@@ -137,6 +173,26 @@ Release builds are signed in CI when a `v*` tag is pushed, from these
 repository secrets: `SIGNING_KEYSTORE_B64` (the keystore, base64-encoded),
 `SIGNING_KEYSTORE_PASSWORD`, `SIGNING_KEY_ALIAS` and `SIGNING_KEY_PASSWORD`.
 Locally, set `SIGNING_KEYSTORE` (a path) and the same three variables to sign.
+
+To set up signing for your own repository (or fork):
+
+```sh
+keytool -genkeypair -v -keystore release.jks -alias dashboardsaver \
+  -keyalg RSA -keysize 4096 -validity 10000
+base64 -i release.jks | gh secret set SIGNING_KEYSTORE_B64
+gh secret set SIGNING_KEYSTORE_PASSWORD
+gh secret set SIGNING_KEY_ALIAS          # dashboardsaver
+gh secret set SIGNING_KEY_PASSWORD
+```
+
+Back up the keystore and its passwords somewhere safe: without them you can
+never publish an update that installs over an existing release. A release
+build can't install over a debug build (different keys); uninstall the debug
+build first.
+
+## Security
+
+See [SECURITY.md](SECURITY.md) to report a vulnerability.
 
 ## License
 
