@@ -20,6 +20,12 @@
         android:theme="@style/Theme.DashboardSaver"
         tools:targetApi="31">
 
+        <!-- Keep the WebView from talking to Google on its own: no usage
+             metrics, and no Safe Browsing lookups (the page is one the user
+             chose). -->
+        <meta-data android:name="android.webkit.WebView.MetricsOptOut" android:value="true" />
+        <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing" android:value="false" />
+
         <activity
             android:name=".SettingsActivity"
             android:exported="true"

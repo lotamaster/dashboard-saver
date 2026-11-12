@@ -5,8 +5,10 @@ Assistant dashboard, a Grafana board, a calendar, any web page with a URL.
 
 - **Small.** A few hundred lines of Kotlin, no libraries beyond the Android
   framework, no AndroidX.
-- **Private.** No analytics, no ads, no network calls except to the page you
-  choose. The only permission is `INTERNET`, and nothing is backed up.
+- **Private.** No analytics, no ads. The app itself talks only to the page
+  you choose (and whatever that page loads); WebView usage metrics and Safe
+  Browsing lookups are turned off. The only permission is `INTERNET`, and
+  nothing is backed up.
 - **Stays put.** Links to other sites are ignored (unless you allow them), and
   if the page fails to load it retries.
 - **Sign in once.** "Open page" shows the same page interactively. Cookies and
