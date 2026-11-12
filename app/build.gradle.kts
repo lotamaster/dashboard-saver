@@ -8,7 +8,7 @@ val appId = providers.gradleProperty("dashboardsaver.applicationId").get()
 
 // From the CI tag (-PversionName=1.2.3), else a development default.
 // versionCode is derived as major*10000 + minor*100 + patch.
-val appVersion = providers.gradleProperty("versionName").orNull?.removePrefix("v") ?: "0.1.1"
+val appVersion = providers.gradleProperty("versionName").orNull?.removePrefix("v") ?: "0.2.0"
 val appVersionCode = appVersion.substringBefore('-').split('.')
     .map { it.toIntOrNull() ?: 0 }
     .let { (it + listOf(0, 0, 0)).take(3) }

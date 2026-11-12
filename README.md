@@ -167,7 +167,7 @@ Build options, passed with `-P` or set in `~/.gradle/gradle.properties`:
 | --- | --- | --- |
 | `dashboardsaver.applicationId` | `com.lotamaster.dashboardsaver` (in `gradle.properties`) | The package ID. Forks should change it so their build installs alongside this one. The broadcast action, the screensaver's settings link and the on-screen adb help all follow it; replace the package in the adb commands above to match. |
 | `dashboardsaver.defaultUrl` | none | A URL the app starts with before one is set, for builds you install on your own devices. Keep it in `~/.gradle/gradle.properties` so it never lands in the repo. |
-| `versionName` | `0.1.1` | Set by CI from the `v*` tag. `versionCode` is derived as major×10000 + minor×100 + patch. |
+| `versionName` | `0.2.0` | Set by CI from the `v*` tag. `versionCode` is derived as major×10000 + minor×100 + patch. |
 
 Release builds are signed in CI when a `v*` tag is pushed, from these
 repository secrets: `SIGNING_KEYSTORE_B64` (the keystore, base64-encoded),
