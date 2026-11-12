@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 
@@ -39,6 +40,14 @@ class SettingsActivity : Activity() {
         shiftPixels = view(R.id.shift_pixels)
         status = view(R.id.status)
 
+        // One row of buttons on a TV or tablet; stacked on a phone, where they
+        // wouldn't fit side by side.
+        if (resources.configuration.screenWidthDp < 600) {
+            view<LinearLayout>(R.id.buttons).orientation = LinearLayout.VERTICAL
+            for (id in listOf(R.id.open, R.id.system, R.id.clear)) {
+                (view<Button>(id).layoutParams as LinearLayout.LayoutParams).marginStart = 0
+            }
+        }
         view<Button>(R.id.save).setOnClickListener { save() }
         view<Button>(R.id.open).setOnClickListener {
             if (save()) startActivity(Intent(this, PreviewActivity::class.java))
