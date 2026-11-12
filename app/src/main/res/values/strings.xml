@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Dreampage</string>
-    <string name="title">Dreampage</string>
-    <string name="subtitle">Shows one web page as this device\'s screensaver.</string>
-    <string name="url_label">Page URL</string>
-    <string name="url_hint">https://example.com/dashboard</string>
+    <string name="app_name">DashboardSaver</string>
+    <string name="subtitle">Shows one web page, usually a dashboard, as this device\'s screensaver.</string>
+    <string name="url_label">Page URL, for example https://example.com/dashboard</string>
+    <string name="allowed_hosts_label">Other hosts the page may open, comma-separated (for a sign-in page on another host). *.example.com matches subdomains.</string>
+    <string name="reload_label">Reload every N minutes (0 = never)</string>
+    <string name="retry_label">Retry a failed load after N seconds</string>
+    <string name="zoom_label">Zoom, percent (100 = the page\'s own size)</string>
+    <string name="dim_label">Let the screen dim</string>
+    <string name="shift_label">Shift the page slightly every 2 minutes (burn-in protection)</string>
     <string name="save">Save</string>
     <string name="open">Open page (sign in)</string>
     <string name="system_settings">Screensaver settings</string>
+    <string name="clear">Clear sign-in data</string>
+    <string name="clear_confirm">Remove all cookies and site storage? You will need to sign in to the page again.</string>
+    <string name="cleared">Sign-in data cleared</string>
     <string name="saved">Saved</string>
     <string name="bad_url">Enter a full http:// or https:// URL</string>
-    <string name="no_url">No page set. Open Dreampage to choose one.</string>
+    <string name="bad_number">Enter a number from %1$d to %2$d</string>
+    <string name="no_url">No page set. Open DashboardSaver to choose one.</string>
     <string name="no_dream_settings">This device hides screensaver settings. Use the adb command below.</string>
-    <string name="status_active">Dreampage is the current screensaver.</string>
-    <string name="status_inactive">Dreampage is not the current screensaver yet.</string>
+    <string name="status_active">DashboardSaver is the current screensaver.</string>
+    <string name="status_inactive">DashboardSaver is not the current screensaver yet.</string>
     <string name="status_unknown">Could not read the current screensaver.</string>
-    <string name="adb_help">To make it the screensaver on Google TV, from a computer:\nadb shell settings put secure screensaver_components com.lotamaster.dreampage/.DreampageDream</string>
+    <string name="adb_help">To make it the screensaver on Google TV, from a computer:\nadb shell settings put secure screensaver_components %1$s</string>
 </resources>

@@ -6,3 +6,8 @@ local.properties
 *.jks
 *.keystore
 .DS_Store
+.kotlin/
+*.apk
+*.aab
+*.p12
+keystore.properties

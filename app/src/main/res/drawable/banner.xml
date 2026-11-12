@@ -1,4 +1,7 @@
+<!-- Android TV banners are 320x180 by definition. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="VectorRaster"
     android:width="320dp" android:height="180dp"
     android:viewportWidth="320" android:viewportHeight="180">
     <path android:fillColor="#0B1020" android:pathData="M0,0 h320 v180 h-320 z" />

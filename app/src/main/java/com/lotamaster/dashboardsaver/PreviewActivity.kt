@@ -1,4 +1,4 @@
-package com.lotamaster.dreampage
+package com.lotamaster.dashboardsaver
 
 import android.app.Activity
 import android.os.Bundle
@@ -14,10 +14,10 @@ class PreviewActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        page = PageView(this, Prefs.url(this))
+        page = PageView(this, Prefs.load(this))
         setContentView(page)
         page.requestFocus()
-        page.start()
+        page.start(screensaver = false)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
