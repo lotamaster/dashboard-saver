@@ -39,7 +39,6 @@ class SettingsActivity : Activity() {
         shiftPixels = view(R.id.shift_pixels)
         status = view(R.id.status)
 
-        show(Prefs.load(this))
         view<Button>(R.id.save).setOnClickListener { save() }
         view<Button>(R.id.open).setOnClickListener {
             if (save()) startActivity(Intent(this, PreviewActivity::class.java))
@@ -53,6 +52,9 @@ class SettingsActivity : Activity() {
 
     override fun onResume() {
         super.onResume()
+        // Re-read every time: settings may have changed over adb while this
+        // screen was in the background, and saving stale fields would undo that.
+        show(Prefs.load(this))
         status.setText(currentStatus())
     }
 
