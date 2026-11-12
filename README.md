@@ -61,7 +61,8 @@ adb shell am broadcast \
 
 Pass only the extras you want to change; the others keep their current value.
 If any extra is invalid, nothing is saved and the result line says why
-(`result=2`). On success it prints `result=1` and the saved settings.
+(`result=2`). On success it prints `result=1` and the names of the settings
+that changed (never their values, since a URL can hold a token).
 
 To sign out of the page:
 

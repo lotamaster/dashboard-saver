@@ -34,15 +34,29 @@ class ConfigReceiver : BroadcastReceiver() {
         if (intent.hasExtra(Prefs.SHIFT_PIXELS)) s = s.copy(shiftPixels = intent.getBooleanExtra(Prefs.SHIFT_PIXELS, false))
 
         if (errors.isEmpty()) {
+            val before = Prefs.load(context)
             Prefs.save(context, s)
-            if (intent.getBooleanExtra(CLEAR_DATA, false)) Prefs.clearSiteData()
+            val clear = intent.getBooleanExtra(CLEAR_DATA, false)
+            if (clear) Prefs.clearSiteData()
+            // Names only: a URL can carry a token, and logcat is not the place for it.
+            val changed = changedKeys(before, s) + if (clear) listOf(CLEAR_DATA) else emptyList()
             resultCode = 1
-            resultData = "saved: $s"
+            resultData = if (changed.isEmpty()) "saved: nothing changed" else "saved: " + changed.joinToString(", ")
         } else {
             resultCode = 2
             resultData = "nothing saved: " + errors.joinToString("; ")
         }
         Log.i(TAG, resultData ?: "")
+    }
+
+    private fun changedKeys(a: Settings, b: Settings): List<String> = buildList {
+        if (a.url != b.url) add(Prefs.URL)
+        if (a.allowedHosts != b.allowedHosts) add(Prefs.ALLOWED_HOSTS)
+        if (a.reloadMinutes != b.reloadMinutes) add(Prefs.RELOAD_MINUTES)
+        if (a.retrySeconds != b.retrySeconds) add(Prefs.RETRY_SECONDS)
+        if (a.zoomPercent != b.zoomPercent) add(Prefs.ZOOM_PERCENT)
+        if (a.dim != b.dim) add(Prefs.DIM)
+        if (a.shiftPixels != b.shiftPixels) add(Prefs.SHIFT_PIXELS)
     }
 
     /** Null if the extra is absent or invalid (invalid also adds an error). */
