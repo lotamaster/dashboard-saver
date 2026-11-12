@@ -46,7 +46,7 @@ object Prefs {
         return Settings(
             url = p.getString(URL, null) ?: BuildConfig.DEFAULT_URL,
             allowedHosts = parseHosts(p.getString(ALLOWED_HOSTS, "") ?: ""),
-            reloadMinutes = p.getInt(RELOAD_MINUTES, 0),
+            reloadMinutes = p.getInt(RELOAD_MINUTES, 60),
             retrySeconds = p.getInt(RETRY_SECONDS, 30),
             zoomPercent = p.getInt(ZOOM_PERCENT, 100),
             dim = p.getBoolean(DIM, false),

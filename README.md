@@ -31,7 +31,7 @@ both places.
 | --- | --- | --- | --- |
 | Page URL | `--es url` | none | The page to show. Full `http://` or `https://` URL. |
 | Other hosts | `--es allowed_hosts` | none | Comma-separated hosts the page may navigate to, such as a sign-in page on another host. `*.example.com` matches subdomains. The page's own host is always allowed. |
-| Reload every N minutes | `--ei reload_minutes` | `0` (never) | Reloads the page periodically while the screensaver runs. 0 to 1440. |
+| Reload every N minutes | `--ei reload_minutes` | `60` | Reloads the page periodically while the screensaver runs, which clears memory a long-open page builds up and recovers a page that stopped updating. 0 turns it off; up to 1440. |
 | Retry after N seconds | `--ei retry_seconds` | `30` | How long to wait before retrying a page that failed to load. 5 to 3600. |
 | Zoom, percent | `--ei zoom_percent` | `100` | Scales the page. 100 uses the page's own layout. 25 to 400. |
 | Let the screen dim | `--ez dim` | `false` | Lets the screen dim during the screensaver. |
