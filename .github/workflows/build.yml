@@ -24,7 +24,7 @@ jobs:
       - name: Build debug APK
         run: ./gradlew --no-daemon assembleDebug lint
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: dashboard-saver-debug
           path: app/build/outputs/apk/debug/*.apk
