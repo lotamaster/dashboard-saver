@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "dashboardsaver"
+rootProject.name = "dashboard-saver"
 include(":app")

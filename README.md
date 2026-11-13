@@ -27,7 +27,7 @@ with "Dashboard Screen Saver" or any other app on Google Play.
 Download the APK from [Releases](../../releases) and install it:
 
 ```sh
-adb install dashboardsaver-vX.Y.Z.apk
+adb install dashboard-saver-vX.Y.Z.apk
 ```
 
 ## Settings
